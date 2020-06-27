@@ -10,7 +10,7 @@ class SearchBooks extends React.Component {
         super(props);
         this.state = {
             value: '',
-            books: []
+            foundBooks: []
         };
 
         this.handleChange = this.handleChange.bind(this);
@@ -24,15 +24,24 @@ class SearchBooks extends React.Component {
             search(newValue)
                 .then((res) => {
                     if (this.state.value.length) {
-                        this.setState({ books: res });
+                        let updatedRes = (res || []).map((resBook) => {
+                            let existingBook = this.props.books.find((b) => (b.id === resBook.id));
+                            if (existingBook) {
+                                resBook = {...resBook, shelf: existingBook.shelf}
+                            } else {
+                                resBook = {...resBook, shelf: 'none'}
+                            }
+                            return resBook;
+                        });
+                        this.setState({ foundBooks: updatedRes });
                     } else {
-                        this.setState({ books: [] });
+                        this.setState({ foundBooks: [] });
                     }
                 }).catch((err) => {
                     console.log(err);
                 });
         } else {
-            this.setState({ books: [] });
+            this.setState({ foundBooks: [] });
         }
     }
 
@@ -53,9 +62,9 @@ class SearchBooks extends React.Component {
                 </div>
                 <div className="search-books-results">
                     {
-                        this.state.books.length ? (
+                        this.state.foundBooks.length ? (
                             <BookShelf title={'Found Books'}
-                                books={this.state.books}
+                                books={this.state.foundBooks}
                                 onSelectChange={(shelfType, bookId) => this.props.onSelectChange(shelfType, bookId)} />
                         ) : null
                     }
@@ -66,6 +75,7 @@ class SearchBooks extends React.Component {
 }
 
 SearchBooks.propTypes = {
+    books: PropTypes.array.isRequired,
     onSelectChange: PropTypes.func.isRequired
 };
 

@@ -18,7 +18,9 @@ function BookShelf(props) {
                                     <div className="book-top">
                                         <div className="book-cover"
                                             style={{ width: 128, height: 193, backgroundImage: `url("${b.imageLinks && b.imageLinks.thumbnail.length ? b.imageLinks.thumbnail : defaultImg}")` }}></div>
-                                        <BookActions onSelectChange={(shelfType) => props.onSelectChange(shelfType, b.id)} />
+                                        <BookActions
+                                            shelf={b.shelf}
+                                            onSelectChange={(shelfType) => props.onSelectChange(shelfType, b.id)} />
                                     </div>
                                     <div className="book-title">{b.title}</div>
                                     <div className="book-authors">

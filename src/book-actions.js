@@ -1,12 +1,12 @@
 import React from 'react';
 import './App.css';
-// import PropTypes from 'prop-types';
+import PropTypes from 'prop-types';
 
 class BookActions extends React.Component {
     
     constructor(props) {
         super(props);
-        this.state = { value: 'move' };
+        this.state = { value: this.props.shelf };
 
         this.handleChange = this.handleChange.bind(this);
     }
@@ -19,7 +19,7 @@ class BookActions extends React.Component {
     render() {
         return (
             <div className="book-shelf-changer">
-                <form>
+                <form className="book-shelf-form">
                     <select value={this.state.value} onChange={this.handleChange}>
                         <option value="move" disabled>Move to...</option>
                         <option value="currentlyReading">Currently Reading</option>
@@ -33,8 +33,9 @@ class BookActions extends React.Component {
     }
 }
 
-// BookActions.propTypes = {
-//     onSelectChange: PropTypes.func.isRequired
-// };
+BookActions.propTypes = {
+    shelf: PropTypes.string.isRequired,
+    onSelectChange: PropTypes.func.isRequired
+};
 
 export default BookActions;

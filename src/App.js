@@ -61,6 +61,7 @@ class BooksApp extends React.Component {
 						</Route>
 						<Route path="/search"
 							render={(props) => (<SearchBooks {...props}
+								books={this.state.books}
 								onSelectChange={(shelfType, bookId) => (this.onSelectChange(shelfType, bookId))} />)}>
 						</Route>
 					</Switch>
