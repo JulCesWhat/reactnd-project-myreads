@@ -3,6 +3,8 @@ import './App.css';
 import PropTypes from 'prop-types';
 import BookActions from './book-actions';
 
+const defaultImg = "https://placekitten.com/128/193";
+
 function BookShelf(props) {
     return (
         <div className="bookshelf">
@@ -15,13 +17,13 @@ function BookShelf(props) {
                                 <div className="book">
                                     <div className="book-top">
                                         <div className="book-cover"
-                                            style={{ width: 128, height: 193, backgroundImage: `url("${b.imageLinks.thumbnail}")` }}></div>
-                                        <BookActions onSelectChange={(item) => props.onSelectChange(item, b.id)} />
+                                            style={{ width: 128, height: 193, backgroundImage: `url("${b.imageLinks && b.imageLinks.thumbnail.length ? b.imageLinks.thumbnail : defaultImg}")` }}></div>
+                                        <BookActions onSelectChange={(shelfType) => props.onSelectChange(shelfType, b.id)} />
                                     </div>
                                     <div className="book-title">{b.title}</div>
                                     <div className="book-authors">
                                         {
-                                            b.authors.join(', ')
+                                            b.authors && b.authors.length ? b.authors.join(', ') : ''
                                         }
                                     </div>
                                 </div>

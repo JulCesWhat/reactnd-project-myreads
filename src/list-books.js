@@ -3,23 +3,23 @@ import './App.css';
 import PropTypes from 'prop-types';
 import BookShelf from './book-shelf';
 
-const bookShelf = [
-    {
-        id: 'AA',
-        title: 'Currently Reading',
-        type: 'currentlyReading'
-    },
-    {
-        id: 'AB',
-        title: 'Want to Read',
-        type: 'wantToRead'
-    },
-    {
-        id: 'AC',
-        title: 'Read',
-        type: 'read'
-    }
-];
+// const bookShelf = [
+//     {
+//         id: 'AA',
+//         title: 'Currently Reading',
+//         type: 'currentlyReading'
+//     },
+//     {
+//         id: 'AB',
+//         title: 'Want to Read',
+//         type: 'wantToRead'
+//     },
+//     {
+//         id: 'AC',
+//         title: 'Read',
+//         type: 'read'
+//     }
+// ];
 
 class ListBooks extends React.Component {
 
@@ -33,13 +33,13 @@ class ListBooks extends React.Component {
                     <div>
                         <BookShelf title={'Currently Reading'}
                             books={this.props.books.filter((b) => (b.shelf === 'currentlyReading'))}
-                            onSelectChange={(item, bookId) => this.props.onSelectChange(item, bookId)} />
+                            onSelectChange={(shelfType, bookId) => this.props.onSelectChange(shelfType, bookId)} />
                         <BookShelf title={'Want to Read'}
                             books={this.props.books.filter((b) => (b.shelf === 'wantToRead'))}
-                            onSelectChange={(item, bookId) => this.props.onSelectChange(item, bookId)} />
+                            onSelectChange={(shelfType, bookId) => this.props.onSelectChange(shelfType, bookId)} />
                         <BookShelf title={'Read'}
                             books={this.props.books.filter((b) => (b.shelf === 'read'))}
-                            onSelectChange={(item, bookId) => this.props.onSelectChange(item, bookId)} />
+                            onSelectChange={(shelfType, bookId) => this.props.onSelectChange(shelfType, bookId)} />
                     </div>
                 </div>
                 <div className="open-search">
@@ -49,5 +49,10 @@ class ListBooks extends React.Component {
         );
     }
 }
+
+ListBooks.propTypes = {
+    books: PropTypes.array.isRequired,
+    onSelectChange: PropTypes.func.isRequired
+};
 
 export default ListBooks;
